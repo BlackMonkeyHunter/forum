@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forum</title>
+	<script>
+		// Initialize an empty array to store posts
+		var posts = [];
+
+		// Function to add a new post to the array
+		function addPost() {
+			// Get the values of the input fields
+			var name = document.getElementById("name").value;
+			var message = document.getElementById("message").value;
+
+			// Create a new post object with the input values and the current date
+			var post = {
+				name: name,
+				message: message,
+				date: new Date()
+			};
+
+			// Add the post object to the array
+			posts.push(post);
+
+			// Clear the input fields
+			document.getElementById("name").value = "";
+			document.getElementById("message").value = "";
+
+			// Call the displayPosts function to update the forum
+			displayPosts();
+		}
+
+		// Function to display all the posts in the array
+		function displayPosts() {
+			// Get the div where the posts will be displayed
+			var postDiv = document.getElementById("posts");
+
+			// Clear the div
+			postDiv.innerHTML = "";
+
+			// Loop through the posts array and create a new div for each post
+			for (var i = 0; i < posts.length; i++) {
+				var post = posts[i];
+
+				// Create a new div for the post
+				var postElement = document.createElement("div");
+				postElement.className = "post";
+
+				// Add the post name, message, and date to the div
+				var nameElement = document.createElement("h3");
+				nameElement.innerHTML = post.name;
+				postElement.appendChild(nameElement);
+
+				var messageElement = document.createElement("p");
+				messageElement.innerHTML = post.message;
+				postElement.appendChild(messageElement);
+
+				var dateElement = document.createElement("p");
+				dateElement.innerHTML = post.date.toLocaleString();
+				postElement.appendChild(dateElement);
+
+				// Add the post div to the posts div
+				postDiv.appendChild(postElement);
+			}
+		}
+	</script>
+	<style>
+		.post {
+			border: 1px solid black;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Forum</h1>
+	<div>
+		<label for="name">Name:</label>
+		<input type="text" id="name">
+	</div>
+	<div>
+		<label for="message">Message:</label>
+		<textarea id="message"></textarea>
+	</div>
+	<button onclick="addPost()">Add Post</button>
+	<div id="posts"></div>
+	<script>
+		// Call the displayPosts function to initially display any existing posts
+		displayPosts();
+	</script>
+</body>
+</html>
